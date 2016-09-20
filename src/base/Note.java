@@ -1,8 +1,11 @@
 package base;
 
 import java.util.Date;
+//import java.util.List;
 
-public class Note {
+//import java.util.Comparator;
+
+public class Note implements Comparable<Note>{
 
 	private Date date;
 	private String title;
@@ -55,4 +58,27 @@ public class Note {
 		return true;
 		*/
 	}
+
+	//lab3
+	@Override
+	public int compareTo(Note o) {
+		// TODO Auto-generated method stub
+		
+		if(this.getDate().before(o.getDate()))
+		{
+			return 1;
+		}
+		else if(this.getDate().after(o.getDate()))
+		{
+			return -1;
+		}
+		return 0;
+	}
+	
+	/*public static Comparator<Note> NoteCreatedDateComparator = new Comparator<Note>(){
+		public int compare(Note note1, Note note2){
+			return note1.compareTo(note2);
+		}
+	};
+	*/
 }

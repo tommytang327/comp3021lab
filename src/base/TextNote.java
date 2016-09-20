@@ -1,11 +1,15 @@
 package base;
 
 public class TextNote extends Note{
-	private String content;
+	public String content;
 	
 	public TextNote(String title)
 	{
 		super(title);
 		
 	}
+	
+	/*public String getContent(){    //added by me
+		return content;
+	}*/
 }

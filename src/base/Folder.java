@@ -1,8 +1,12 @@
 package base;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
+import java.util.regex.Pattern;
+//import java.util.Comparator;
 
-public class Folder {
+public class Folder implements Comparable<Folder>{
 	private ArrayList<Note> notes;
 	private String name;
 	
@@ -45,4 +49,50 @@ public class Folder {
 		else
 			return false;
 	}
+
+	//lab3
+	@Override
+	public int compareTo(Folder o) {
+		// TODO Auto-generated method stub
+		if(this.getName().compareTo(o.getName())<0)  //this>o
+		{
+			return 1;
+		}
+		else if(this.getName().compareTo(o.getName())>0)   //this<o
+		{
+			return -1;
+		}
+		return 0;
+	}
+	
+	
+	public void sortNotes(){
+		//List<Note> notes = new ArrayList<Note>();
+		Collections.sort(notes); 
+		
+		
+	}
+	
+	public List<Note> searchNotes(String keywords){
+		List<Note> matchedNotes = new ArrayList<Note>();
+		
+		
+		for(Note note: notes){
+			if(Pattern.compile(Pattern.quote(keywords), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find()){
+				matchedNotes.add(note);
+			}
+			else{
+				if(note instanceof TextNote){
+					if(Pattern.compile(Pattern.quote(keywords), Pattern.CASE_INSENSITIVE).matcher(((TextNote)note).content).find()){
+						matchedNotes.add(note);
+					}
+				}
+				
+			}
+		}
+		
+		return matchedNotes;
+		//Pattern.compile(Pattern.quote(s2), Pattern.CASE_INSENSITIVE).matcher(s1).find();
+	}
+	
 }

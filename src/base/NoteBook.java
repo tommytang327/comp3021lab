@@ -1,6 +1,8 @@
 package base;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class NoteBook {
 	private ArrayList<Folder> folders;
@@ -46,5 +48,26 @@ public class NoteBook {
 	
 	public ArrayList<Folder> getFolders(){
 		return this.folders;
+	}
+	
+	public void sortFolders(){
+		/*for(Folder folder: folders)    //???
+		{
+			folder.sortNotes();
+		}
+		*/
+		
+		folders.stream().forEach(folder->folder.sortNotes());   //lamda expression
+		Collections.sort(folders);
+	}
+	
+	public List<Note> searchNotes(String keywords){
+		List<Note> matchedNotes = new ArrayList<Note>();
+		
+		
+		
+		//to be implemented
+		
+		return matchedNotes;
 	}
 }
