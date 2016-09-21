@@ -74,6 +74,11 @@ public class Note implements Comparable<Note>{
 		}
 		return 0;
 	}
+
+	@Override
+	public String toString() {
+		return date.toString() + "\t" + title;
+	}
 	
 	/*public static Comparator<Note> NoteCreatedDateComparator = new Comparator<Note>(){
 		public int compare(Note note1, Note note2){
@@ -81,4 +86,6 @@ public class Note implements Comparable<Note>{
 		}
 	};
 	*/
+	
+	
 }

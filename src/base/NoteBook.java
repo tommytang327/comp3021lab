@@ -64,10 +64,16 @@ public class NoteBook {
 	public List<Note> searchNotes(String keywords){
 		List<Note> matchedNotes = new ArrayList<Note>();
 		
-		
-		
-		//to be implemented
+		for(Folder folder: folders){
+			matchedNotes.addAll(folder.searchNotes(keywords));
+		}
 		
 		return matchedNotes;
+	}
+	
+	//Overloading method createTextNote
+	public boolean createTextNote(String folderName, String title, String content){
+		TextNote note = new TextNote(title, content);
+		return insertNote(folderName, note);
 	}
 }

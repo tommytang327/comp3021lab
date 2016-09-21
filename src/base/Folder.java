@@ -75,19 +75,30 @@ public class Folder implements Comparable<Folder>{
 	
 	public List<Note> searchNotes(String keywords){
 		List<Note> matchedNotes = new ArrayList<Note>();
+		String[] splitWords = keywords.split(" ",0);
 		
 		
 		for(Note note: notes){
-			if(Pattern.compile(Pattern.quote(keywords), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find()){
-				matchedNotes.add(note);
-			}
-			else{
-				if(note instanceof TextNote){
-					if(Pattern.compile(Pattern.quote(keywords), Pattern.CASE_INSENSITIVE).matcher(((TextNote)note).content).find()){
+			boolean matched = false;
+			
+			if(!matched){
+				for(String splitWord: splitWords){
+					if(Pattern.compile(Pattern.quote(splitWord), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find()
+							&& !(Pattern.compile(Pattern.quote("or"), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find())){
 						matchedNotes.add(note);
+						matched = true;
+					}
+					else{
+						if(note instanceof TextNote){
+							if(Pattern.compile(Pattern.quote(splitWord), Pattern.CASE_INSENSITIVE).matcher(((TextNote)note).content).find()
+									&& !(Pattern.compile(Pattern.quote("or"), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find())){
+								matchedNotes.add(note);
+								matched = true;
+							}
+						}
+						
 					}
 				}
-				
 			}
 		}
 		
