@@ -54,7 +54,7 @@ public class Folder implements Comparable<Folder>{
 	@Override
 	public int compareTo(Folder o) {
 		// TODO Auto-generated method stub
-		if(this.getName().compareTo(o.getName())<0)  //this>o
+		/*if(this.getName().compareTo(o.getName())<0)  //this>o
 		{
 			return 1;
 		}
@@ -63,6 +63,9 @@ public class Folder implements Comparable<Folder>{
 			return -1;
 		}
 		return 0;
+		*/
+		
+		return name.compareTo(o.name);
 	}
 	
 	
@@ -77,21 +80,45 @@ public class Folder implements Comparable<Folder>{
 		List<Note> matchedNotes = new ArrayList<Note>();
 		String[] splitWords = keywords.split(" ",0);
 		
+		for(String currKeyword: splitWords){
+			System.out.println(currKeyword);
+		}
 		
+		System.out.println("++++++++++");
+		
+		List<String> keywordsInList = new ArrayList<String>();
+		for(String currSplitWords: splitWords){
+			if(!(currSplitWords.equals("or")||currSplitWords.equals("OR")||currSplitWords.equals("oR")||currSplitWords.equals("Or"))){
+				
+				keywordsInList.add(currSplitWords);
+			}
+		}
+		
+		System.out.println("--------------");
+		
+		for(String currSplitWords: keywordsInList){
+			System.out.println(currSplitWords);
+		}
+		
+		System.out.println("--------------");
+		
+
 		for(Note note: notes){
 			boolean matched = false;
 			
+			
+			
 			if(!matched){
-				for(String splitWord: splitWords){
-					if(Pattern.compile(Pattern.quote(splitWord), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find()
-							&& !(Pattern.compile(Pattern.quote("or"), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find())){
+				for(String keyword: keywordsInList){
+					if(Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find()){
+							//&& !(Pattern.compile(Pattern.quote("or"), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find())){
 						matchedNotes.add(note);
 						matched = true;
 					}
 					else{
 						if(note instanceof TextNote){
-							if(Pattern.compile(Pattern.quote(splitWord), Pattern.CASE_INSENSITIVE).matcher(((TextNote)note).content).find()
-									&& !(Pattern.compile(Pattern.quote("or"), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find())){
+							if(Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE).matcher(((TextNote)note).content).find()){
+									//&& !(Pattern.compile(Pattern.quote("or"), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find())){
 								matchedNotes.add(note);
 								matched = true;
 							}

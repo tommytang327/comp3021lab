@@ -73,6 +73,7 @@ public class Note implements Comparable<Note>{
 			return -1;
 		}
 		return 0;
+		
 	}
 
 	@Override
