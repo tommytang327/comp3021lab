@@ -12,7 +12,7 @@ public class TextNote extends Note{
 	public TextNote(String title, String content)
 	{
 		super(title);
-		this.content = "";
+		this.content = content;
 	}
 	
 	/*public String getContent(){    //added by me

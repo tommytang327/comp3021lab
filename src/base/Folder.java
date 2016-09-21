@@ -80,12 +80,6 @@ public class Folder implements Comparable<Folder>{
 		List<Note> matchedNotes = new ArrayList<Note>();
 		String[] splitWords = keywords.split(" ",0);
 		
-		for(String currKeyword: splitWords){
-			System.out.println(currKeyword);
-		}
-		
-		System.out.println("++++++++++");
-		
 		List<String> keywordsInList = new ArrayList<String>();
 		for(String currSplitWords: splitWords){
 			if(!(currSplitWords.equals("or")||currSplitWords.equals("OR")||currSplitWords.equals("oR")||currSplitWords.equals("Or"))){
@@ -93,6 +87,8 @@ public class Folder implements Comparable<Folder>{
 				keywordsInList.add(currSplitWords);
 			}
 		}
+		
+		//OK
 		
 		System.out.println("--------------");
 		
@@ -110,10 +106,24 @@ public class Folder implements Comparable<Folder>{
 			
 			if(!matched){
 				for(String keyword: keywordsInList){
+					//testing
+					System.out.println("**********************************");
+					System.out.println("keyword: " + keyword);
+					System.out.println("Title: " + note.getTitle());
+					if(note instanceof TextNote)
+						System.out.println("TextNote content: " + ((TextNote)note).content);
+					//testing
+					
 					if(Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find()){
 							//&& !(Pattern.compile(Pattern.quote("or"), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find())){
 						matchedNotes.add(note);
 						matched = true;
+						
+						//testing
+						System.out.println("matching result note title: " + Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find());
+						
+						
+						//testing
 					}
 					else{
 						if(note instanceof TextNote){
@@ -121,6 +131,12 @@ public class Folder implements Comparable<Folder>{
 									//&& !(Pattern.compile(Pattern.quote("or"), Pattern.CASE_INSENSITIVE).matcher(note.getTitle()).find())){
 								matchedNotes.add(note);
 								matched = true;
+								
+								//testing
+								System.out.println("matching result textnote content: " + Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE).matcher(((TextNote)note).content).find());
+								
+								
+								//testing
 							}
 						}
 						
