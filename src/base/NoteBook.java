@@ -51,13 +51,13 @@ public class NoteBook {
 	}
 	
 	public void sortFolders(){
-		/*for(Folder folder: folders)    //???
+		for(Folder folder: folders)    //???
 		{
 			folder.sortNotes();
 		}
-		*/
 		
-		folders.stream().forEach(folder->folder.sortNotes());   //lamda expression
+		
+		//folders.stream().forEach(folder->folder.sortNotes());   //lamda expression
 		Collections.sort(folders);
 	}
 	
