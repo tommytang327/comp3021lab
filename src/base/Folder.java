@@ -43,6 +43,7 @@ public class Folder implements Comparable<Folder>{
 		return name + ":" + nText + ":" + nImage;
 	}
 	
+	@Override
 	public boolean equals(Object otherFolder){
 		if(this.name.equals(((Folder)otherFolder).getName()))
 			return true;
@@ -99,9 +100,10 @@ public class Folder implements Comparable<Folder>{
 		 }
 	 
 		 for (Note note: notes){
-			 boolean matchedTitle = true;
-			 boolean matchedContent = true;
+			 
 			 if(note instanceof TextNote){    //perform different operations according to their data type
+				 boolean matchedTitle = true;
+				 boolean matchedContent = true;
 				 String noteTitle = note.getTitle().toLowerCase();
 				 String noteContent = ((TextNote)note).content.toLowerCase();
 	
@@ -119,22 +121,21 @@ public class Folder implements Comparable<Folder>{
 			 
 				 for(int k=0 ; k<orCompo.size() ; k+=2){
 					 if (!(noteContent.contains(orCompo.get(k)) || noteContent.contains(orCompo.get(k+1))))  matchedContent = false;
-				 }
+				 } 
+				 if(matchedTitle || matchedContent) listOfNote.add(note); 
 				 
 			 }else if(note instanceof ImageNote){
+				 boolean matchedTitle = true;
 				 String noteTitle = note.getTitle().toLowerCase();
-				 matchedContent = false;
 				 for(String s: andCompo){
 					 if (!(noteTitle.contains(s))) matchedTitle = false;
 				 }
 			 
 				 for(int j=0; j<orCompo.size() ; j+=2){
 					 if (!(noteTitle.contains(orCompo.get(j)) || noteTitle.contains(orCompo.get(j+1))))  matchedTitle = false;
-				 }			 
+				 }		
+				 if(matchedTitle) listOfNote.add(note); 
 			 }
-			 
-			 if(matchedTitle || matchedContent)
-				 listOfNote.add(note); 
 		 }
 		 return listOfNote;
 	}
