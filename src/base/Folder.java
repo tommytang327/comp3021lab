@@ -51,7 +51,7 @@ public class Folder implements Comparable<Folder>{
 			return false;
 	}
 
-	//lab3
+	//lab3 to do
 	@Override
 	public int compareTo(Folder o) {
 		// TODO Auto-generated method stub
