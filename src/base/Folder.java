@@ -116,7 +116,7 @@ public class Folder implements Comparable<Folder>{
 				 }
 		 
 				 for(String temp:andCompo){
-					 if ((temp!=null && noteContent.contains(temp)))  matchedContent = false;
+					 if (!(temp!=null && noteContent.contains(temp)))  matchedContent = false;
 				 }
 			 
 				 for(int k=0 ; k<orCompo.size() ; k+=2){
