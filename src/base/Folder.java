@@ -81,7 +81,7 @@ public class Folder implements Comparable<Folder>,Serializable{
 	}
 	
 	public List<Note> searchNotes(String keywords){   	
-		 List<Note> listOfNote = new ArrayList<Note>();
+		 /*List<Note> listOfNote = new ArrayList<Note>();
 		 List<String> andCompo = new ArrayList<String>();
 		 List<String> orCompo = new ArrayList<String>();
 		 String[] splitKeys = keywords.split(" ");
@@ -89,11 +89,17 @@ public class Folder implements Comparable<Folder>,Serializable{
 		 for(int i=0 ; i<splitKeys.length; i++){
 			 if (splitKeys[i]!=null){  //****fixed null pointer problem
 				 if(splitKeys[i].equalsIgnoreCase("OR")){    //extract elements next to OR 
-					 orCompo.add(splitKeys[i+1].toLowerCase());
-					 orCompo.add(splitKeys[i-1].toLowerCase()); 
-					 splitKeys[i] = null;
-					 splitKeys[i+1] = null;
-					 splitKeys[i-1] = null;
+					 if(splitKeys[i+1] != null)
+						 orCompo.add(splitKeys[i+1].toLowerCase());
+					 if(splitKeys[i-1] != null)
+						 orCompo.add(splitKeys[i-1].toLowerCase()); 
+					 
+					 if(splitKeys[i] != null)
+						 splitKeys[i] = null;
+					 if(splitKeys[i+1] != null)
+						 splitKeys[i+1] = null;
+					 if(splitKeys[i-1] != null)
+						 splitKeys[i-1] = null;
 				 }	 
 			 }
 		 }
@@ -141,6 +147,59 @@ public class Folder implements Comparable<Folder>,Serializable{
 			 }
 		 }
 		 return listOfNote;
+		 
+		 
+		 
+		 */
+		
+		String[] keys=keywords.split(" ");
+		List<Note> lists = new ArrayList<Note>();
+
+		
+		for(Note n : this.notes){
+			boolean found=true;
+			
+			if(n instanceof TextNote){
+				int i=0;
+				
+				for( ; i<keys.length && found ; ){
+					found=false; 
+					do{
+						if(keys[i].equalsIgnoreCase("or"))
+							i++;
+						if((n.getTitle().toLowerCase().indexOf(keys[i].toLowerCase())>=0)||(((TextNote) n).content.toLowerCase().indexOf(keys[i].toLowerCase())>=0)) ///else
+							found=true;
+						i++;
+					}while ((i<keys.length) && (keys[i].equalsIgnoreCase("or")));
+
+				}
+				if(found)
+					lists.add(n);		
+			}
+			
+			if(n instanceof ImageNote) {
+				int i=0;
+				
+				for( ; i<keys.length && found ; ) {
+					found=false; 
+					do{
+						if(keys[i].equalsIgnoreCase("or"))
+							i++;
+						if((n.getTitle().toLowerCase().indexOf(keys[i].toLowerCase())>=0))
+							found=true;
+						i++;
+					}while ((i<keys.length) && (keys[i].equalsIgnoreCase("or")));
+
+				}
+				if(found)
+					lists.add(n);				
+			}
+		}
+		return lists;
+		
+		
+		
+		
 	}
 }
 		

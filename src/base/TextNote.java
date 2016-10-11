@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+import java.util.HashMap;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
@@ -101,7 +101,30 @@ public class TextNote extends Note implements Serializable{
 	}
 	
 	
-	/*public String getContent(){    //added by me
+	public String getContent(){    //added by me
 		return content;
-	}*/
+	}
+	
+	//lab6 - buggy function
+	public Character countLetters(){
+		HashMap<Character,Integer> count = new HashMap<Character,Integer>();
+		String a = this.getTitle() + this.getContent();
+		int b = 0;
+		Character r = ' ';
+		for (int i = 0; i < a.length(); i++) {
+			Character c = a.charAt(i);
+			if (c <= 'Z' && c >= 'A' || c <= 'z' && c >= 'a') {
+				if (!count.containsKey(c)) {
+					count.put(c, 1);
+				} else {
+					count.put(c, count.get(c) + 1);
+					if (count.get(c) > b) {
+						b = count.get(c);
+						r = c;
+					}
+				}
+			}
+		}
+		return r;
+	}
 }
