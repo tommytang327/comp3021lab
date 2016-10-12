@@ -39,15 +39,18 @@ public class JUnitTest {
 	
 	@Test
 	public void testTextNote() {
-		NoteBook nb = new NoteBook();
-		nb.createTextNote("Note1", "Java", "comp3021");
+		/*NoteBook nb = new NoteBook();
+		nb.createTextNote("Note1", "AA", "BB");
 		nb.createTextNote("Note2", "Assignment", "due on 2016-10-16");
 		nb.createTextNote("Note3", "lab","need to attend weekly");
 		nb.createTextNote("Note4", "lab4","testing");
 		List<Note> notes = nb.searchNotes("java or DUE or testing");
+		*/
 		
-		Character charV = 'v'; 
-		assertEquals("The max char found was not v", charV, ((TextNote)notes.get(0)).countLetters());
+		TextNote abc = new TextNote("","abcd");
+		Character charA = 'A'; 
+		assertEquals("The max char found was not a", charA, abc.countLetters());
+		//System.out.println(notes.get(0).toString());
 		
 
 	}
