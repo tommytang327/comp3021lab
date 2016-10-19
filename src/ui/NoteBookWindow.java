@@ -242,7 +242,7 @@ public class NoteBookWindow extends Application {
 			}*/
 			
 			List<Note> notelist = folder.getNotes();
-			if (currentSearch!=""){
+			if (!currentSearch.equals("")){
 				notelist = folder.searchNotes(currentSearch);
 			}
 			
