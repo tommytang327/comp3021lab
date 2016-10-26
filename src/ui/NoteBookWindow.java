@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -28,6 +32,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 
 /**
  * 
@@ -67,6 +72,8 @@ public class NoteBookWindow extends Application {
 	 * current search string
 	 */
 	String currentSearch = "";
+	
+	Stage stage;
 
 	public static void main(String[] args) {
 		launch(NoteBookWindow.class, args);
@@ -75,6 +82,9 @@ public class NoteBookWindow extends Application {
 	@Override
 	public void start(Stage stage) {
 		loadNoteBook();
+		
+		this.stage = stage;
+		
 		// Use a border pane as the root for scene
 		BorderPane border = new BorderPane();
 		// add top, left and center
@@ -86,6 +96,8 @@ public class NoteBookWindow extends Application {
 		stage.setScene(scene);
 		stage.setTitle("NoteBook COMP 3021");
 		stage.show();
+		
+		
 	}
 
 	/**
@@ -93,6 +105,8 @@ public class NoteBookWindow extends Application {
 	 * 
 	 * @return
 	 */
+	
+	
 	private HBox addHBox() {
 
 		HBox hbox = new HBox();
@@ -101,10 +115,54 @@ public class NoteBookWindow extends Application {
 
 		Button buttonLoad = new Button("Load");
 		buttonLoad.setPrefSize(100, 20);
-		buttonLoad.setDisable(true);
+		buttonLoad.setDisable(false);
+		buttonLoad.setOnAction(new EventHandler<ActionEvent>(){
+			
+			@Override
+			public void handle(ActionEvent event){
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Please Choose An File Which Contains a NoteBook Object");
+				
+				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Serialize Object File (*.ser)", "*.ser");
+				fileChooser.getExtensionFilters().add(extFilter);
+				
+				File file = fileChooser.showOpenDialog(stage);
+				
+				if(file!=null){
+					loadNoteBook(file);
+				}
+			}
+		});
+		
 		Button buttonSave = new Button("Save");
 		buttonSave.setPrefSize(100, 20);
-		buttonSave.setDisable(true);
+		buttonSave.setDisable(false);
+		buttonSave.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event){
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Please Choose An File Which Contains a NoteBook Object");
+				
+				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Serialize Object File (*.ser)", "*.ser");
+				fileChooser.getExtensionFilters().add(extFilter);
+				
+				File file = fileChooser.showOpenDialog(stage);
+				
+
+				
+				if (noteBook.save(file.getAbsolutePath())){
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Successfully saved");
+					alert.setContentText("You file has been saved to file "
+					+ file.getName());
+					alert.showAndWait().ifPresent(rs -> {
+						if (rs == ButtonType.OK) {
+							System.out.println("Pressed OK.");
+						}
+					});
+				}
+			}
+		});
 		
 		hbox.getChildren().addAll(buttonLoad, buttonSave);
 		
@@ -149,6 +207,8 @@ public class NoteBookWindow extends Application {
 
 		return hbox;
 	}
+	
+	
 
 	/**
 	 * this create the section on the left
@@ -296,6 +356,11 @@ public class NoteBookWindow extends Application {
 		nb.createTextNote("Holiday", "Christmas", "Possible destinations : Home, New York or Rome");
 		noteBook = nb;
 
+	}
+	
+	private void loadNoteBook(File file){
+		NoteBook nb = new NoteBook(file.getAbsolutePath());
+		noteBook = nb;
 	}
 
 }
