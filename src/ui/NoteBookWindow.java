@@ -218,7 +218,7 @@ public class NoteBookWindow extends Application {
 	private VBox addVBox() {
 
 		VBox vbox = new VBox();
-		vbox.setPadding(new Insets(10)); // Set all sides to 10
+		vbox.setPadding(new Insets(10)); // tSet all sides to 10
 		vbox.setSpacing(8); // Gap between nodes
 
 		//foldersComboBox.getItems().addAll("FOLDER NAME 1", "FOLDER NAME 2", "FOLDER NAME 3");
