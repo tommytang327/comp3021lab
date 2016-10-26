@@ -219,7 +219,7 @@ public class NoteBookWindow extends Application {
 
 		VBox vbox = new VBox();
 		vbox.setPadding(new Insets(10)); // tSet all sides to 10
-		vbox.setSpacing(8); // Gap between nodes
+		vbox.setSpacing(8); // Gap btetween nodes
 
 		//foldersComboBox.getItems().addAll("FOLDER NAME 1", "FOLDER NAME 2", "FOLDER NAME 3");
 		for(Folder f : noteBook.getFolders()){    //lab1 load folder name and store in combo boc list
