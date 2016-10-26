@@ -231,7 +231,7 @@ public class NoteBookWindow extends Application {
 			public void changed(ObservableValue ov, Object t, Object t1) {
 				currentFolder = t1.toString();
 				// this contains the name of the folder selected
-				// TODO update listview
+				// TODO update listviewh
 				
 				
 				
