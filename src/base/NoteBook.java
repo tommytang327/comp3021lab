@@ -85,6 +85,78 @@ public class NoteBook implements Serializable{
 		return true;
 	}
 	
+	public boolean modifyTextNoteContent(String folderName, String title, String content){
+		System.out.println(folderName);
+		System.out.println(title);
+		System.out.println(content);
+		System.out.println("==========");
+		Note note = new Note(title);
+		
+		Folder f = null;
+		for(Folder f1: folders){
+			if(f1.getName().equals(folderName))
+				f = f1;
+			//System.out.println("===fsfsdfsdf===");
+		}
+		
+		for(Note n: f.getNotes()){
+			if(note.equals(n))
+			{
+				if(n instanceof TextNote){
+					((TextNote)n).content = content;
+					return true;
+				}
+				else if(n instanceof ImageNote){
+					
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean deleteNote(String folderName, String title){
+		/*System.out.println(folderName);
+		System.out.println(title);
+		System.out.println(content);
+		System.out.println("==========");*/
+		Note note = new Note(title);
+		
+		Folder f = null;
+		for(Folder f1: folders){
+			if(f1.getName().equals(folderName))
+				f = f1;
+		}
+		
+		for(Note n: f.getNotes()){
+			if(note.equals(n))
+			{
+				n = null;
+				System.out.println("===fsfsdfsdf===");
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean insertFolder(String folderName){
+		boolean noSuchFolder = true;
+		for(Folder f1: folders){
+			if(f1.getName().equals(folderName))
+				noSuchFolder = false;
+		}
+		
+		if(noSuchFolder){		
+			Folder f = new Folder(folderName);
+			folders.add(f);
+			System.out.println("add folder: " + folderName);
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 	public ArrayList<Folder> getFolders(){
 		return this.folders;
 	}
