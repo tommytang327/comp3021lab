@@ -1,9 +1,14 @@
 package lab10;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class RacyCounter {
 
 	int counter = 0;
 	final static int ITERATIONS = 10000000; /// do not change this
+	
+	private static Lock lock = new ReentrantLock();
 
 	public static void main(String[] args) throws Throwable {
 		new RacyCounter().runTest();
@@ -30,7 +35,7 @@ public class RacyCounter {
 
 	private class MyTask implements Runnable{
 		@Override
-		public void run(){
+		/*public void run(){
 			for (int i = 0; i < ITERATIONS; i++) {
 				//add synchronization here
 				synchronized(MyTask.class){
@@ -38,9 +43,23 @@ public class RacyCounter {
                     counter = temp +1;
 				}
 				
-				/*int temp = counter;
-				counter = temp +1;*/
+
 			}
+		}*/
+		
+		public void run(){
+			lock.lock();
+			try{
+				for (int i = 0; i < ITERATIONS; i++) {
+					counter++;
+					
+
+				}
+			}
+			finally{
+				lock.unlock();
+			}
+			
 		}
 	}
 }
